@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // file:	main.c
-// author:	[NAME]
-// email:	[DIGIPEN EMAIL ADDRESS]
+// author:	[y.yiphanedgar]
+// email:	[y.yiphanedgar@digipen.edu]
 //
 // brief:	Main entry point for the sample project
 //			of the CProcessing library
