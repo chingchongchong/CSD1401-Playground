@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int BG_Width, BG_Height, m, printed;
+int BG_Width, BG_Height, m, M;
 int transparency, runtime;
 float alpha, periodPerFrame, PI = 22.0/7.0;
 float TotalElapsedTime;
@@ -17,7 +17,11 @@ void splash_screen_init(void)
 	CP_System_SetWindowSize(CP_Image_GetWidth(BG), CP_Image_GetHeight(BG));
 
 	//transparency value
-	runtime = 5;
+	runtime = 2;
+	//Min transparency value
+	m = 0;
+	//Max transparency value
+	M = 255;
 
 }
 void splash_screen_update(void)
@@ -30,28 +34,43 @@ void splash_screen_update(void)
 	//int TimeTakenSec = (int) floor(TotalElapsedTime) % runtime;
 	
 	//Impt codes
+	TotalElapsedTime += CP_System_GetDt();
 	CP_Graphics_ClearBackground(CP_Color_Create(10,10,10,255));
-	//Fade in
-	//tl:dr math =
+	//Fade in #1 #Start
 	//Get perc of (time taken from last to current frame) from (Specified Runtime)
 	//Use perc to get alpha's perc equivalent => use this as transition speed to next frame
-
-	//alpha += (CP_System_GetDt() / runtime) * 255;
-	////Resets img alpha value to 0 after max value of 255
-	//m = (int) alpha % 255;
-	//CP_Image_Draw(BG, 10.f, 10.f,CP_System_GetWindowWidth(), CP_System_GetWindowHeight(), m);
+	alpha += (CP_System_GetDt() / runtime) * M;
+	//Resets img alpha value to 0 after max value of 255
+	transparency = (int) alpha % M;
+	//Fade in #End
+	
+	////Fade in #2 #Start
+	////Simplify Fade in #1 into one line
+	//transparency = (int) ((TotalElapsedTime * M) / runtime ) % M;
+	////Fade in #2 #End
+	
+	
 	
 	//Fade in AND Fade out
-	//tl:dr math = 
 	//using sine wave for oscillating values between 0 - 255
-	//1 cycle from 0-255 is ~ PI 
 	
-	//TotalElapsedTime += CP_System_GetDt();
-	//alpha = abs(255 * sinf(TotalElapsedTime * PI/runtime));
-	//printf("%f | %f | %f | %f\n", alpha, TotalElapsedTime, PI, periodPerFrame);
-	//CP_Image_Draw(BG, 10.f, 10.f, CP_System_GetWindowWidth(), CP_System_GetWindowHeight(), (int) alpha);
+	////Using Sine #Start
+	//transparency = abs(255 * sinf(TotalElapsedTime * PI/runtime));
+	////Using Sine #End
+	
+	////Using Cosine #Start
+	//transparency = abs(M / 2 * cosf(TotalElapsedTime * (2 * PI) / runtime) - M / 2);
+	////Using Cosine #End
 
 
+	////Using Mod #Start
+	//transparency = abs(M - ((int)(TotalElapsedTime * M) / runtime % (M * 2)));
+	////Using Mod #End
+
+	printf("%f | %d | %f\n", alpha, transparency, TotalElapsedTime);
+	
+
+	CP_Image_Draw(BG, 10.f, 10.f,CP_System_GetWindowWidth(), CP_System_GetWindowHeight(), transparency);
 
 	cursor();
 
