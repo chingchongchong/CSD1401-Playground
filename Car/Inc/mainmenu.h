@@ -2,6 +2,7 @@
 #ifndef HEADERFILE_H
 #define HEADERFILE_H
 
+
 typedef struct Coordinates{
 	float x;
 	float y;
@@ -33,6 +34,8 @@ typedef struct Triangle {
 typedef struct Car {
 	Circle circle;
 	Triangle triangle;
+	CP_Color circleColor;
+	CP_Color triColor;
 }Car;
 
 

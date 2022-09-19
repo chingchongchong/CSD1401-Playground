@@ -1,8 +1,9 @@
 
-*/bin
-*/.tmp
-*/Trash
-*/.vs
+**/bin
+**/.tmp
+**/Trash
+**/.vs
+
 
 **vcxproj.user
 **vcxproj.filters

@@ -26,14 +26,14 @@ void Main_Menu_Update()
 	int centeroffset = 100;
 	//Y ++ = down
 	//X ++ = right
-	//Unecessary #Start
-	CP_Settings_Save();
-	CP_Settings_StrokeWeight(1.0f);
-	CP_Graphics_DrawLine(0, sheight / 2, swidth, sheight / 2);
-	for (int i = 0; i <= 20; i++) {
-		CP_Graphics_DrawLine(swidth / 2 - rectWOff + i*5 , 0, swidth / 2 - rectWOff + i*5, sheight);
-	}
-	//Unecessary #End
+	////Unecessary #Start
+	//CP_Settings_Save();
+	//CP_Settings_StrokeWeight(1.0f);
+	//CP_Graphics_DrawLine(0, sheight / 2, swidth, sheight / 2);
+	//for (int i = 0; i <= 20; i++) {
+	//	CP_Graphics_DrawLine(swidth / 2 - rectWOff + i*5 , 0, swidth / 2 - rectWOff + i*5, sheight);
+	//}
+	////Unecessary #End
 
 	//CP_Settings_StrokeWeight(1.0f);
 	//CP_Settings_Restore();

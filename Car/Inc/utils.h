@@ -8,3 +8,4 @@ union CP_Vector AngleToVector(float radian_angle);
 Car CreateCar(Circle, char[]);
 void DrawCar(Car* car);
 void UpdateCarRotation(Car* car);
+int CarSelection(Car* CarArr[],int, float, float);

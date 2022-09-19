@@ -31,12 +31,16 @@ int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter
 
 CP_Vector AngleToVector(float radian_angle)
 {
-    // TODO 
+	double rad = fmod(radian_angle, 6.28);
+	double x = cosf(rad), y = sinf(rad);
+	return  CP_Vector_Set(x, y);
+	
+	// TODO 
     //CP_Vector ret;
     //return ret;
 }
 
-Car CreateCar(Circle circle, char *startPoint) {
+Car CreateCar(Circle circle, char *startPoint, CP_Color circleC, CP_Color triC) {
 	Coor P1, P2, P3;
 	double angle = 2.25;
 	double tRad = 6.28 , lRad, rRad, modMax = 6.28;
@@ -69,12 +73,14 @@ Car CreateCar(Circle circle, char *startPoint) {
 	P2 = (Coor){ abs(btm * cosf(b) + circle.coor.x), abs(btm * sinf(b) - circle.coor.y) };
 	P3 = (Coor){ abs(btm * cosf(c) + circle.coor.x), abs(btm * sinf(c) - circle.coor.y) };
 	Triangle T = { P1, P2, P3, tRad, angle, btm };
-	Car obj = { circle, T };
+	Car obj = { circle, T , circleC, triC};
 	
 	return obj;
 }
 void DrawCar(Car*car) {
+	CP_Settings_Fill(car->circleColor);
 	CP_Graphics_DrawCircle( car->circle.coor.x, car->circle.coor.y, car->circle.rad *2);
+	CP_Settings_Fill(car->triColor);
 	CP_Graphics_DrawTriangle(car->triangle.P1.x, car->triangle.P1.y, car->triangle.P2.x, car->triangle.P2.y, car->triangle.P3.x, car->triangle.P3.y);
 }
 
@@ -93,6 +99,17 @@ void UpdateCarRotation(Car* car) {
 	car->triangle.P3.x = abs(car->triangle.btm * cosf(c) + car->circle.coor.x);
 	car->triangle.P3.y = abs(car->triangle.btm * sinf(c) - car->circle.coor.y);
 	
+}
+
+int CarSelection(Car* CarArr[], int totalCars, float Mouse_Input_x, float Mouse_Input_y) {
+	for (int i = 0; i < totalCars; i++) {
+		Car cCar = *CarArr[i];
+		if (IsCircleClicked(cCar.circle.coor.x, cCar.circle.coor.y, cCar.circle.rad * 2, Mouse_Input_x, Mouse_Input_y) == 0) {
+			return i;
+		}
+	}
+	return totalCars;
+
 }
 
 
